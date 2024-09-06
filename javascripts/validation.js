@@ -5,7 +5,7 @@ function emailValidation() {
 
     // 両方のフィールドが入力されていることを確認
     if (email.value === "" || email_confirm.value === "") {
-      return; // どちらかが空なら、バリデーションを実行しない
+      return; // どちらかが空ならemailValidation関数をそこで中止する
     }
 
       // エラーメッセージ行が既に存在するかを確認
@@ -17,15 +17,15 @@ function emailValidation() {
         // 親の<tr>要素を取得し、その親要素をたどって<table>全体を取得
         const emailRow = email_confirm.closest("tr");  // email_confirmを囲んでいる<tr>要素を取得
         const tableBody = emailRow.parentNode; // parentNodeプロパティで、自動生成された<tbody>を取得
-       // 新しい行を挿入してエラーメッセージを表示
+       // 新しい行<tr>を挿入してエラーメッセージを表示
        //email_confirmを囲んでいる<tr>要素の親の、自動生成された<tbody>に対して、emailRowの次に行を追加
-      // rowIndexは、その行がテーブルの中で何番目にあるかを示す
-       const newRow = tableBody.insertRow(emailRow.rowIndex + 1); // 
+      // rowIndexは、新規挿入する行がテーブルの中で何番目にあるかを示す
+      //insertRow()は新しい行のみを返す
+       const newRow = tableBody.insertRow(emailRow.rowIndex + 1); // 何番目かを指定して、tbody要素全体を示すtableBodyに行を挿入する
        //errorRowという名前は、「エラーメッセージを表示するための行」であることを示すために命名
-       newRow.setAttribute("id", "errorRow"); //setAttributeは、指定された要素(newRow)に新しい属性(name=id,value=errorRow)を追加する 
-        const newCell = newRow.insertCell(0);//insertCell() メソッドは、新しいセル (<td>) を表の行 (<tr>) に挿入
-
-        newCell.setAttribute("colspan", "2");//setAttributeは、指定された要素(newCell)に対しcolspanを実施(2個のセルを連結)
+       newRow.setAttribute("id", "errorRow"); //setAttributeは、新しい<tr>(newRow)に新しいid属性(id=errorRow)を追加する 
+        const newCell = newRow.insertCell(0);//insertCell() メソッドは、新しいセル (<td>) を表の行 (<tr>) の最初のセルに挿入。その行全体を使うため0番目
+        newCell.setAttribute("colspan", "2");//setAttributeは、指定された要素(newCell)に対しcolspanを実施(2個のセルを連結)。２個目を作ってなくても出来る
         newCell.style.color = "#d14539";
         newCell.textContent = "Eメールが一致しません";
     
@@ -34,7 +34,7 @@ function emailValidation() {
     }
 
       } else {
-        // エラーメッセージが表示されている場合は削除し、背景色をリセット
+        // エラーメッセージが既に表示されている場合は削除
         const existingErrorRow = document.getElementById("errorRow");
         if (existingErrorRow) {
           existingErrorRow.remove();
