@@ -23,9 +23,10 @@ function emailValidation() {
       //insertRow()は新しい行のみを返す
        const newRow = tableBody.insertRow(emailRow.rowIndex + 1); // 何番目かを指定して、tbody要素全体を示すtableBodyに行を挿入する
        //errorRowという名前は、「エラーメッセージを表示するための行」であることを示すために命名
+
        newRow.setAttribute("id", "errorRow"); //setAttributeは、新しい<tr>(newRow)に新しいid属性(id=errorRow)を追加する 
         const newCell = newRow.insertCell(0);//insertCell() メソッドは、新しいセル (<td>) を表の行 (<tr>) の最初のセルに挿入。その行全体を使うため0番目
-        newCell.setAttribute("colspan", "2");//setAttributeは、指定された要素(newCell)に対しcolspanを実施(2個のセルを連結)。２個目を作ってなくても出来る
+        newCell.setAttribute("colspan", "2");//colspan属性に2という値を入れ、2個のセルを連結。２個目を作ってなくても出来る
         newCell.style.color = "#d14539";
         newCell.textContent = "Eメールが一致しません";
     
@@ -33,15 +34,15 @@ function emailValidation() {
         email_confirm.style.backgroundColor = 'rgba(230,169,171,.5)'; 
     }
 
-      } else {
-        // エラーメッセージが既に表示されている場合は削除
-        const existingErrorRow = document.getElementById("errorRow");
-        if (existingErrorRow) {
-          existingErrorRow.remove();
-        }
-        email_confirm.style.backgroundColor = ""; // 背景色をリセットして元に戻す
-      }
+  } else {
+    // エラーメッセージが既に表示されている場合は削除
+    const existingErrorRow = document.getElementById("errorRow");
+    if (existingErrorRow) {
+      existingErrorRow.remove();
     }
+    email_confirm.style.backgroundColor = ""; // 背景色をリセットして元に戻す
+  }
+}
 
   //inputイベントが発生したときにemailValidationという関数を実行する
   //ユーザーが入力を行うたびにリアルタイムでバリデーションが行われる
